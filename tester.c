@@ -1,24 +1,47 @@
+#include <stdio.h>
+#include <time.h>
+
 int main() 
 { 
-    int r = 3, c = 3, i, j, count; 
+	int n;
+	printf("Enter in the dimension of the array: ");
+	scanf("%d",&n);
+
+    int i, j, count,temp; 
   
-    int *arr[r]; 
-    for (i=0; i<r; i++) 
-         arr[i] = (int *)malloc(c * sizeof(int)); 
+    int *arr[n]; 
+    for (int i=0; i<n; i++) 
+         arr[i] = (int *)malloc(n * sizeof(int)); 
   
-    // Note that arr[i][j] is same as *(*(arr+i)+j) 
     count = 0; 
-    for (i = 0; i <  r; i++) 
-      for (j = 0; j < c; j++) 
-         arr[i][j] = count++; // Or *(*(arr+i)+j) = ++count 
+    for (int i = 0; i <  n; i++) 
+      for (int j = 0; j < n; j++) 
+         arr[i][j] = count++;
   
-    for (i = 0; i <  r; i++) 
-      for (j = 0; j < c; j++) 
-         printf("%d ", arr[i][j]); 
   
-    for (i = 0; i <  r; i++) 
-      for (j = 0; j < c; j++) 
-         printf("%d ", arr[j][i]); 
+  	clock_t t;
+	t = clock();
+    for (int i = 0; i <  n; i++) 
+      for (int j = 0; j < n; j++) 
+         //printf("%d ", arr[i][j]); 
+         temp = arr[i][j];
+  	t = clock()-t;
+  	double time_taken = ((double)t)/CLOCKS_PER_SEC;
+  	printf("it took %f seconds to access the array row wise\n", time_taken);
+  
+  
+  	clock_t other;
+	other = clock();
+    for ( int i = 0; i <  n; i++) 
+      for (int j = 0; j < n; j++) 
+         //printf("%d ", arr[j][i]); 
+         temp = arr[j][i];
+   	other = clock()-other;
+   	double time_taken2 = ((double)other)/CLOCKS_PER_SEC;
+	printf("it took %f seconds to access the array column wise", time_taken2);
+
+  
+
     /* Code for further processing and free the  
       dynamically allocated memory */
   
